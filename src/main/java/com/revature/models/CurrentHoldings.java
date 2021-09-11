@@ -1,10 +1,14 @@
 package com.revature.models;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -21,51 +25,114 @@ public class CurrentHoldings {
 	private double currentBitcoin;
 	@Column(name = "current_stockValue")
 	private double stockValue;
+
+	
+	@ManyToOne(fetch=FetchType.EAGER,cascade=CascadeType.MERGE)
+	@JoinColumn(name="user_id")
+	private User user;
 	
 
-	public CurrentHoldings(int holdingsId, double currentUsd, double currentBitcoin, double stockValue) {
-		super();
-		this.holdingsId = holdingsId;
-		this.currentUsd = currentUsd;
-		this.currentBitcoin = currentBitcoin;
-		this.stockValue = stockValue;
-	}
 
 	public CurrentHoldings() {
 		super();
 	}
 
+	
+
+
+
+	public CurrentHoldings(int holdingsId, double currentUsd, double currentBitcoin, double stockValue, User user) {
+		super();
+		this.holdingsId = holdingsId;
+		this.currentUsd = currentUsd;
+		this.currentBitcoin = currentBitcoin;
+		this.stockValue = stockValue;
+		this.user = user;
+	}
+
+
+
+
+
 	public int getHoldingsId() {
 		return holdingsId;
 	}
+
+
+
+
 
 	public void setHoldingsId(int holdingsId) {
 		this.holdingsId = holdingsId;
 	}
 
+
+
+
+
 	public double getCurrentUsd() {
 		return currentUsd;
 	}
+
+
+
+
 
 	public void setCurrentUsd(double currentUsd) {
 		this.currentUsd = currentUsd;
 	}
 
+
+
+
+
 	public double getCurrentBitcoin() {
 		return currentBitcoin;
 	}
+
+
+
+
 
 	public void setCurrentBitcoin(double currentBitcoin) {
 		this.currentBitcoin = currentBitcoin;
 	}
 
+
+
+
+
 	public double getStockValue() {
 		return stockValue;
 	}
 
+
+
+
+
 	public void setStockValue(double stockValue) {
 		this.stockValue = stockValue;
 	}
+
+
+
+
+
+	public User getUser() {
+		return user;
+	}
+
+
+
+
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+
+
+
 
 	@Override
 	public int hashCode() {
@@ -79,6 +146,7 @@ public class CurrentHoldings {
 		result = prime * result + holdingsId;
 		temp = Double.doubleToLongBits(stockValue);
 		result = prime * result + (int) (temp ^ (temp >>> 32));
+		result = prime * result + ((user == null) ? 0 : user.hashCode());
 		return result;
 	}
 
@@ -99,13 +167,20 @@ public class CurrentHoldings {
 			return false;
 		if (Double.doubleToLongBits(stockValue) != Double.doubleToLongBits(other.stockValue))
 			return false;
+		if (user == null) {
+			if (other.user != null)
+				return false;
+		} else if (!user.equals(other.user))
+			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
 		return "CurrentHoldings [holdingsId=" + holdingsId + ", currentUsd=" + currentUsd + ", currentBitcoin="
-				+ currentBitcoin + ", stockValue=" + stockValue + "]";
+				+ currentBitcoin + ", stockValue=" + stockValue + ", user=" + user + "]";
 	}
+
+	
 
 }
