@@ -2,10 +2,13 @@ package com.revature.controllers;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.ResponseEntity.BodyBuilder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.revature.models.User;
 import com.revature.services.UserService;
+//import com.revature.util.Bcrypt;
 
 @RestController
 @RequestMapping(value = "/users")
@@ -25,6 +29,8 @@ import com.revature.services.UserService;
 public class UserController {
 
 	private UserService userService = new UserService();
+//	private Bcrypt bcrypt= new Bcrypt();
+	Logger log=  LoggerFactory.getLogger(UserController.class);
 
 	@Autowired
 	public UserController(UserService userService) {
@@ -33,22 +39,25 @@ public class UserController {
 	}
 
 	@GetMapping("/hello")
-	public void helloTest() {
-		System.out.println("Saying Hello from user controller");
+	public String helloTest() {
+		log.info("Saying Hello from user controller");
+		return "home.jsp";
 	}
 
 	@GetMapping
 	public ResponseEntity<List<User>> getAllUsers() {
-		System.out.println("Client invoked get all Users");
+		log.info("Client invoked get all Users");
 		List<User> users= userService.getAllUsers();
 		return ResponseEntity.status(HttpStatus.OK).body(users);
 	}
 	
 	@PostMapping("/post")
 	public ResponseEntity<User> newUser(@RequestBody User user) {
-		System.out.println("Client invoked post new User");
-		userService.saveUser(user);
-			System.out.println("User saved");
+		log.info("Client invoked post new User");
+//		user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
+//		user.setRole(roleRepository.findOne(user.getRole().getId()));
+		userService.saveUser(user);		
+		log.info("User saved"+user);
 			return ResponseEntity.status(HttpStatus.CREATED).build();
 		
 	}
@@ -74,6 +83,29 @@ public class UserController {
 			return ResponseEntity.status(HttpStatus.FOUND).build();
 		}
 		
+	}
+	
+	@GetMapping("/login")
+	public String login() {
+		log.info("Client invoked login method");
+		String password="thomas123";
+//		bcrypt.checkPassword(password)
+		if(password=="thomas123") {
+//		return ResponseEntity.status(HttpStatus.ACCEPTED).build();
+			return ("<h3>200</h3>");
+		}else
+		{
+		return ("404");
+//			return ResponseEntity.status(HttpStatus.valueOf("404")).build();
+		}
+		
+			
+	}
+	
+	@GetMapping("/logout")
+	public ResponseEntity<User> logout(){
+		log.info("Client invoked logout method");
+		return ResponseEntity.status(HttpStatus.ACCEPTED).build();
 	}
 	
 	

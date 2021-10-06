@@ -1,7 +1,5 @@
 package com.revature.models;
 
-
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,8 +11,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
+@Data
+@AllArgsConstructor
 @Table(name = "users")
 public class User {
 
@@ -28,14 +31,18 @@ public class User {
 	@Column(name = "last_name")
 	private String lastName;
 	@Column(name = "user_email")
-	private String email;
+	private String userEmail;
+	@Column(name = "username")
+	private String username;
 	@Column(name = "user_address")
 	private String address;
 	@Column(name = "user_phone")
 	private String telephone;
 	@Column(name = "user_password")
 	private String password;
-	
+	@Column(name = "user_role")
+	private String role;
+
 //	@OneToMany(mappedBy="user")
 //	@JoinColumn(name="holdingsIdkj")
 //	private List<CurrentHoldings> currentholdidasfdng;
@@ -43,178 +50,6 @@ public class User {
 	public User() {
 		super();
 	}
-	
 
-	public User(int id, String firstName, String lastName, String email, String address, String telephone,
-			String password) {
-		super();
-		this.id = id;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.email = email;
-		this.address = address;
-		this.telephone = telephone;
-		this.password = password;		
-	}
-
-
-
-
-
-	public int getId() {
-		return id;
-	}
-
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-
-	public String getFirstName() {
-		return firstName;
-	}
-
-
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-
-
-	public String getLastName() {
-		return lastName;
-	}
-
-
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
-
-
-	public String getEmail() {
-		return email;
-	}
-
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-
-	public String getAddress() {
-		return address;
-	}
-
-
-	public void setAddress(String address) {
-		this.address = address;
-	}
-
-
-	public String getTelephone() {
-		return telephone;
-	}
-
-
-	public void setTelephone(String telephone) {
-		this.telephone = telephone;
-	}
-
-
-	public String getPassword() {
-		return password;
-	}
-
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-
-//	public List<CurrentHoldings> getCurrentholding() {
-//		return currentholding;
-//	}
-
-
-//	public void setCurrentholding(List<CurrentHoldings> currentholding) {
-//		this.currentholding = currentholding;
-//	}
-
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((address == null) ? 0 : address.hashCode());
-//		result = prime * result + ((currentholding == null) ? 0 : currentholding.hashCode());
-		result = prime * result + ((email == null) ? 0 : email.hashCode());
-		result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
-		result = prime * result + id;
-		result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
-		result = prime * result + ((password == null) ? 0 : password.hashCode());
-		result = prime * result + ((telephone == null) ? 0 : telephone.hashCode());
-		return result;
-	}
-
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		User other = (User) obj;
-		if (address == null) {
-			if (other.address != null)
-				return false;
-		} else if (!address.equals(other.address))
-			return false;
-//		if (currentholding == null) {
-//			if (other.currentholding != null)
-//				return false;
-//		} else if (!currentholding.equals(other.currentholding))
-//			return false;
-		if (email == null) {
-			if (other.email != null)
-				return false;
-		} else if (!email.equals(other.email))
-			return false;
-		if (firstName == null) {
-			if (other.firstName != null)
-				return false;
-		} else if (!firstName.equals(other.firstName))
-			return false;
-		if (id != other.id)
-			return false;
-		if (lastName == null) {
-			if (other.lastName != null)
-				return false;
-		} else if (!lastName.equals(other.lastName))
-			return false;
-		if (password == null) {
-			if (other.password != null)
-				return false;
-		} else if (!password.equals(other.password))
-			return false;
-		if (telephone == null) {
-			if (other.telephone != null)
-				return false;
-		} else if (!telephone.equals(other.telephone))
-			return false;
-		return true;
-	}
-
-
-	@Override
-	public String toString() {
-		return "User [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email
-				+ ", address=" + address + ", telephone=" + telephone + ", password=" + password +  "]";
-	}
-
-	
-	
-	
 
 }
