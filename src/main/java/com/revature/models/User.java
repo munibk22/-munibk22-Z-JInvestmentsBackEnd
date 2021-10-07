@@ -1,5 +1,7 @@
 package com.revature.models;
 
+import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -18,6 +20,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "users")
 public class User {
 
@@ -42,14 +45,5 @@ public class User {
 	private String password;
 	@Column(name = "user_role")
 	private String role;
-
-//	@OneToMany(mappedBy="user")
-//	@JoinColumn(name="holdingsIdkj")
-//	private List<CurrentHoldings> currentholdidasfdng;
-
-	public User() {
-		super();
-	}
-
 
 }

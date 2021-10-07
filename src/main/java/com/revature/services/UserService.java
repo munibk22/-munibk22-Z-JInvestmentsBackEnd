@@ -57,7 +57,7 @@ public class UserService implements UserDetailsService {
 
 		User user = userDao.findByUsername(username);
 		if (user == null) {
-			log.warn("404 User not found.");
+			log.error("404 User not found.");
 		}
 
 		return new UserPrincipal(user);

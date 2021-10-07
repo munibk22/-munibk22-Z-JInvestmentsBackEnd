@@ -38,13 +38,13 @@ public class UserController {
 		this.userService = userService;
 	}
 
-	@GetMapping("/hello")
-	public String helloTest() {
-		log.info("Saying Hello from user controller");
-		return "home.jsp";
-	}
+//	@GetMapping("/hello")
+//	public String helloTest() {
+//		log.info("Saying Hello from user controller");
+//		return "home";
+//	}
 
-	@GetMapping
+	@GetMapping("/getusers")
 	public ResponseEntity<List<User>> getAllUsers() {
 		log.info("Client invoked get all Users");
 		List<User> users= userService.getAllUsers();
