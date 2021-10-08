@@ -8,14 +8,14 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.revature.models.User;
+import com.revature.models.Users;
 
 public class UserPrincipal implements UserDetails {
 
-	private User user;
+	private Users user;
 
 	@Autowired
-	public UserPrincipal(User user) {
+	public UserPrincipal(Users user) {
 		super();
 		this.user = user;
 	}

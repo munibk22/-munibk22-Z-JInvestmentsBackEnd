@@ -14,7 +14,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
-import com.revature.models.User;
+import com.revature.models.Users;
 
 @Repository
 @Transactional

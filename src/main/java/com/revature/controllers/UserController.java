@@ -17,9 +17,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.revature.models.User;
+import com.revature.models.Users;
 import com.revature.services.UserService;
 //import com.revature.util.Bcrypt;
 
@@ -45,14 +46,14 @@ public class UserController {
 //	}
 
 	@GetMapping("/getusers")
-	public ResponseEntity<List<User>> getAllUsers() {
+	public ResponseEntity<List<Users>> getAllUsers() {
 		log.info("Client invoked get all Users");
-		List<User> users= userService.getAllUsers();
+		List<Users> users= userService.getAllUsers();
 		return ResponseEntity.status(HttpStatus.OK).body(users);
 	}
 	
 	@PostMapping("/post")
-	public ResponseEntity<User> newUser(@RequestBody User user) {
+	public ResponseEntity<Users> newUser(@RequestBody Users user) {
 		log.info("Client invoked post new User");
 //		user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
 //		user.setRole(roleRepository.findOne(user.getRole().getId()));
@@ -63,20 +64,20 @@ public class UserController {
 	}
 	
 	@DeleteMapping("/delete")
-	public ResponseEntity<User> deleteUser(@RequestBody User user){
+	public ResponseEntity<Users> deleteUser(@RequestBody Users user){
 		userService.deleteUser(user);
 		return ResponseEntity.status(HttpStatus.valueOf(202)).build();
 	}
 	
 	@PutMapping("/update")
-	public ResponseEntity<User> updateUser(@RequestBody User user){
+	public ResponseEntity<Users> updateUser(@RequestBody Users user){
 		userService.updateUser(user);
 		return ResponseEntity.status(HttpStatus.ACCEPTED).build();		
 	}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<User> getById(@PathVariable("id") int id){
-		User user = userService.getById(id);
+	public ResponseEntity<Users> getById(@PathVariable("id") int id){
+		Users user = userService.getById(id);
 		if(user == null) {
 			return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
 		}else {
@@ -85,25 +86,29 @@ public class UserController {
 		
 	}
 	
-	@GetMapping("/login")
-	public String login() {
+	@PostMapping("/login")
+	public void login(@RequestParam("username") String username) {
 		log.info("Client invoked login method");
-		String password="thomas123";
+		System.out.println(username);
+		Users user= userService.loadUserByUsername2(username);
+		
+//		log.info(password);
+		System.out.println(user);
 //		bcrypt.checkPassword(password)
-		if(password=="thomas123") {
+//		if(password=="thomas123") {
 //		return ResponseEntity.status(HttpStatus.ACCEPTED).build();
-			return ("<h3>200</h3>");
-		}else
-		{
-		return ("404");
+//			return ("<h3>200</h3>");
+//		}else
+//		{
+//		return ("404");
 //			return ResponseEntity.status(HttpStatus.valueOf("404")).build();
-		}
+//		}
 		
 			
 	}
 	
 	@GetMapping("/logout")
-	public ResponseEntity<User> logout(){
+	public ResponseEntity<Users> logout(){
 		log.info("Client invoked logout method");
 		return ResponseEntity.status(HttpStatus.ACCEPTED).build();
 	}

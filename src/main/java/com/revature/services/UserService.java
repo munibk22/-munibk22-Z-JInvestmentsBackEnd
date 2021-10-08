@@ -10,7 +10,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.revature.models.User;
+import com.revature.models.Users;
 import com.revature.repos.UserDAO;
 
 @Service
@@ -29,38 +29,43 @@ public class UserService implements UserDetailsService {
 		super();
 	}
 
-	public List<User> getAllUsers() {
+	public List<Users> getAllUsers() {
 		return userDao.findAll();
 	}
 
-	public boolean saveUser(User user) {
+	public boolean saveUser(Users user) {
 		userDao.save(user);
 		return true;
 	}
 
-	public void deleteUser(User user) {
+	public void deleteUser(Users user) {
 		userDao.delete(user);
 
 	}
 
-	public void updateUser(User user) {
+	public void updateUser(Users user) {
 		userDao.save(user);
 
 	}
 
-	public User getById(int id) {
+	public Users getById(int id) {
 		return userDao.getById(id);
 	}
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-		User user = userDao.findByUsername(username);
+		Users user = userDao.findByUsername(username);
 		if (user == null) {
 			log.error("404 User not found.");
 		}
 
 		return new UserPrincipal(user);
+	}
+
+	public Users loadUserByUsername2(String username)throws UsernameNotFoundException  {
+		Users user =userDao.findByUsername(username);
+		return user;
 	}
 
 }

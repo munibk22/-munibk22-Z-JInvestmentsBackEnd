@@ -33,6 +33,6 @@ public class CurrentHoldings {
 
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
 	@JoinColumn(name = "user_id", nullable = false)
-	private User user;
+	private Users user;
 
 }
